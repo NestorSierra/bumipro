@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Application.Applications;
+using Application.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,9 +15,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetApplications()
+        public async Task<IActionResult> GetApplications([FromQuery] ApplicationParams param)
         {
-            return HandleResult(await Mediator.Send(new List.Query()));
+            return HandlePageResult(await Mediator.Send(new List.Query { Params = param }));
         }
 
         [HttpPost]

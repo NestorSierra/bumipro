@@ -5,6 +5,6 @@ namespace Application.Applications
 {
     public class ApplicationParams : PagingParams
     {
-        public Guid? PropertyId { get; set; }
+        public string PropertyId { get; set; }
     }
 }

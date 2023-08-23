@@ -5,6 +5,7 @@ using Application.Core;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Applications
@@ -29,11 +30,15 @@ namespace Application.Applications
 
             public async Task<Result<PagedList<ApplicationDTO>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var query = _context.Applications.ProjectTo<ApplicationDTO>(_mapper.ConfigurationProvider).AsQueryable();
+                var query = _context.Applications
+                    .Include(t => t.AppUser)
+                    .Include(t => t.Property)
+                    .ProjectTo<ApplicationDTO>(_mapper.ConfigurationProvider)
+                    .AsQueryable();
 
-                if (request.Params.PropertyId.HasValue)
+                if (!string.IsNullOrEmpty(request.Params.PropertyId))
                 {
-                    query = query.Where(t => t.PropertyId == request.Params.PropertyId.Value);
+                    query = query.Where(t => t.PropertyId == new System.Guid(request.Params.PropertyId));
                 }
 
                 return Result<PagedList<ApplicationDTO>>.Success(await PagedList<ApplicationDTO>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));
