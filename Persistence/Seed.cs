@@ -35,12 +35,12 @@ namespace Persistence
                     Bathrooms = 2,
                     Country = "Colombia",
                     City = "Bogota",
-                    CreationDate = DateTime.Now,
+                    CreationDate = DateTime.UtcNow,
                     Description = "Esta propiedad se encuentra en pruebas",
                     PostCode = "6000",
                     Price = 200000000,
                     Rooms = 5,
-                    PriceBySqm = 15000,
+                    PriceBySqm = 15000,  
                     State = "T",
                     Status = "A"
                 };
