@@ -78,7 +78,7 @@ export default observer(function HomePage() {
                 variant="h5"
                 sx={{ marginBottom: "40px", color: "#fff" }}
               >
-                Take control of your properties with Bumipro. List your
+                Take control of your properties with Bumipro. THIS IS I SOEMTHIING  List your
                 properties with ease, and easily manage applications from
                 potential tenants who are interested in your properties. With
                 our platform, you'll have everything you need to make informed
