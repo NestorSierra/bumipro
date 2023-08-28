@@ -21,7 +21,7 @@ export default function Banner() {
 
           <TextField
             label="Search"
-            variant="outlined"
+            variant="filled"
             size="small"
             value={searchQuery}
             onChange={handleInputChange}
