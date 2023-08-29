@@ -1,46 +1,54 @@
-using System.Threading.Tasks;
-using Domain;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Persistence;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace API
+// add services to controller
+
+builder.Services.AddControllers(opt =>
+           {
+               var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+               opt.Filters.Add(new AuthorizeFilter(policy));
+           });
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
+
+//Configure the http request pipeline
+
+var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
-
-            using var scope = host.Services.CreateScope();
-
-            var services = scope.ServiceProvider;
-
-            try
-            {
-                var context = services.GetRequiredService<DataContext>();
-                var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                await context.Database.MigrateAsync();
-                await Seed.SeedData(context, userManager);
-            }
-            catch (System.Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError($"Error while creating database: {ex.Message}");
-            }
-
-            host.Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
 }
+
+app.UseCors("CorsPolicy");
+
+//app.UseHttpsRedirection();
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
+
+using var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedData(context, userManager);
+}
+catch (System.Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError($"Error while creating database: {ex.Message}");
+}
+await app.RunAsync();
