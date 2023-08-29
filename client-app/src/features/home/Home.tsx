@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/store";
 import LoginForm from "../../users/LoginForm";
 import RegisterForm from "../../users/RegisterForm";
+import "./home.css";
 
 export default observer(function HomePage() {
   const { userStore, modalStore } = useStore();
@@ -23,13 +24,13 @@ export default observer(function HomePage() {
     <Box
       sx={{
         background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
-        height: "100vh",
+        //height: "100vh",
         overflowY: "hidden",
       }}
     >
       <Container
         maxWidth="xl"
-        sx={{ paddingTop: "80px", paddingBottom: "100px" }}
+        //sx={{ paddingTop: "80px", paddingBottom: "100px" }}
       >
         <Grid container>
           <Grid item xs={12} md={6}>
@@ -37,7 +38,7 @@ export default observer(function HomePage() {
               <img
                 src="https://via.placeholder.com/500x500"
                 alt="Real Estate Application"
-                style={{ maxWidth: "100%", objectFit: "contain" }}
+                //style={{ maxWidth: "100%", objectFit: "contain" }}
               />
             </Box>
           </Grid>
@@ -53,6 +54,7 @@ export default observer(function HomePage() {
               {userStore.isLoggedIn ? (
                 <Typography
                   variant="h2"
+                  className="text-dark"
                   sx={{
                     fontWeight: "bold",
                     marginBottom: "20px",
@@ -73,16 +75,17 @@ export default observer(function HomePage() {
                   Bumipro
                 </Typography>
               )}
-
+              <h1 className="text-dark">Gilberto</h1>
               <Typography
                 variant="h5"
                 sx={{ marginBottom: "40px", color: "#fff" }}
               >
-                Take control of your properties with Bumipro. THIS IS I SOEMTHIING  List your
-                properties with ease, and easily manage applications from
-                potential tenants who are interested in your properties. With
-                our platform, you'll have everything you need to make informed
-                decisions and keep your properties running smoothly.
+                Take control of your properties with Bumipro. THIS IS I
+                SOEMTHIING List your properties with ease, and easily manage
+                applications from potential tenants who are interested in your
+                properties. With our platform, you'll have everything you need
+                to make informed decisions and keep your properties running
+                smoothly.
               </Typography>
               {!userStore.isLoggedIn ? (
                 <div>
