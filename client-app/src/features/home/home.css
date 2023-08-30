@@ -2,13 +2,17 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
-@media (max-width: 600px){
+@media (max-width: 599px){
+  .img-portada{
+    height: 70vh !important;
+  }
   .css-1fyyp8j-MuiGrid-root{
     padding-bottom: 10px;
   }
 }
 
 @media (min-width: 600px){
+  
   .css-asg6n3-MuiContainer-root, .css-19r6kue-MuiContainer-root{
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -16,10 +20,36 @@
   .css-11lq3yg-MuiGrid-root{
     height: 100vh;
   }
+  .logo-name{
+    width: 50%;
+    float: left;
+  }
+  .menu-bar{
+    width: 50%;
+    float: right;
+  }
+}
+
+@media (min-width: 1536px){
+  .css-19r6kue-MuiContainer-root{
+    width: 100vw !important;
+  }
+}
+
+.menu-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto";
+  color: #fff;
+}
+
+.css-0{
+  margin: 0px 20px;
 }
 
 .css-10klw3m{
-  height: 100%;
   width: 100%;
 }
 
@@ -28,8 +58,6 @@
   height: 100%;
   object-fit: cover;
 }
-
-
 
 .css-1fyyp8j-MuiGrid-root{
   height: 100%;

@@ -33,8 +33,59 @@ export default observer(function HomePage() {
         //sx={{ paddingTop: "80px", paddingBottom: "100px" }}
       >
         <Grid container>
+          <Grid item xs={12}>
+            <Box
+              className="logo-name"
+              sx={{
+                height: "10vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              {userStore.isLoggedIn ? (
+                <Typography
+                  variant="h2"
+                  className="text-dark"
+                  sx={{
+                    fontWeight: "bold",
+                    marginLeft: "20px",
+                    color: "#fff",
+                  }}
+                >
+                  Welcome to Bumipro
+                </Typography>
+              ) : (
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontWeight: "normal",
+                    marginLeft: "20px",
+                    color: "#fff",
+                  }}
+                >
+                  Bumipro
+                </Typography>
+              )}
+            </Box>
+            <Box
+              className="menu-bar"
+              sx={{
+                height: "10vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Grid item xs={12} className="menu-list">
+                <Box>Properties</Box>
+                <Box>About</Box>
+                <Box>Contact</Box>
+              </Grid>
+            </Box>
+          </Grid>
           <Grid item xs={12} md={6}>
-            <Box sx={{ height: "100%" }}>
+            <Box className="img-portada" sx={{ height: "100%" }}>
               <img
                 src="https://via.placeholder.com/500x500"
                 alt="Real Estate Application"
@@ -51,41 +102,15 @@ export default observer(function HomePage() {
                 justifyContent: "center",
               }}
             >
-              {userStore.isLoggedIn ? (
-                <Typography
-                  variant="h2"
-                  className="text-dark"
-                  sx={{
-                    fontWeight: "bold",
-                    marginBottom: "20px",
-                    color: "#fff",
-                  }}
-                >
-                  Welcome to Bumipro
-                </Typography>
-              ) : (
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontWeight: "bold",
-                    marginBottom: "20px",
-                    color: "#fff",
-                  }}
-                >
-                  Bumipro
-                </Typography>
-              )}
-              <h1 className="text-dark">Gilberto</h1>
               <Typography
                 variant="h5"
-                sx={{ marginBottom: "40px", color: "#fff" }}
+                sx={{ marginBottom: "40px", color: "#fff", textAlign: "left" }}
               >
-                Take control of your properties with Bumipro. THIS IS I
-                SOEMTHIING List your properties with ease, and easily manage
-                applications from potential tenants who are interested in your
-                properties. With our platform, you'll have everything you need
-                to make informed decisions and keep your properties running
-                smoothly.
+                Take control of your properties with Bumipro. List your
+                properties with ease, and easily manage applications from
+                potential tenants who are interested in your properties. With
+                our platform, you'll have everything you need to make informed
+                decisions and keep your properties running smoothly.
               </Typography>
               {!userStore.isLoggedIn ? (
                 <div>
