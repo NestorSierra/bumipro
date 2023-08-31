@@ -78,14 +78,14 @@ export default observer(function HomePage() {
                 justifyContent: "center",
               }}
             >
-              <Grid item xs={12} className="menu-list">
+              <Grid item xs={12} md={12} className="menu-list">
                 <Box>Properties</Box>
                 <Box>About</Box>
                 <Box>Contact</Box>
               </Grid>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={8}>
             <Box className="img-portada" sx={{ height: "100%" }}>
               <img
                 //src="https://via.placeholder.com/500x500"
@@ -95,8 +95,9 @@ export default observer(function HomePage() {
               />
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Box
+              className="text-portada"
               sx={{
                 height: "100%",
                 display: "flex",
