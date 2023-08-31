@@ -23,8 +23,9 @@ export default observer(function HomePage() {
   return (
     <Box
       sx={{
-        background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
+        //background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
         //height: "100vh",
+        background: "#798baddb",
         overflowY: "hidden",
       }}
     >
@@ -87,7 +88,8 @@ export default observer(function HomePage() {
           <Grid item xs={12} md={6}>
             <Box className="img-portada" sx={{ height: "100%" }}>
               <img
-                src="https://via.placeholder.com/500x500"
+                //src="https://via.placeholder.com/500x500"
+                src="https://cdn.pixabay.com/photo/2019/12/17/04/52/lounge-4700728_960_720.jpg"
                 alt="Real Estate Application"
                 //style={{ maxWidth: "100%", objectFit: "contain" }}
               />
@@ -115,16 +117,16 @@ export default observer(function HomePage() {
               {!userStore.isLoggedIn ? (
                 <div>
                   <Button
+                    className="btn-login"
                     variant="contained"
-                    color="primary"
                     sx={{ marginRight: "10px" }}
                     onClick={handleLogin}
                   >
                     Login
                   </Button>
                   <Button
+                    className="btn-register"
                     variant="contained"
-                    color="secondary"
                     onClick={handleRegister}
                   >
                     Register
@@ -132,10 +134,10 @@ export default observer(function HomePage() {
                 </div>
               ) : (
                 <Button
+                  className="btn-register"
                   component={Link}
                   to="/dashboard"
                   variant="contained"
-                  color="secondary"
                 >
                   Go to my properties
                 </Button>
