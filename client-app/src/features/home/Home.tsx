@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/store";
 import LoginForm from "../../users/LoginForm";
 import RegisterForm from "../../users/RegisterForm";
+import "./home.css";
 
 export default observer(function HomePage() {
   const { userStore, modalStore } = useStore();
@@ -22,29 +23,22 @@ export default observer(function HomePage() {
   return (
     <Box
       sx={{
-        background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
-        height: "100vh",
+        //background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
+        //height: "100vh",
+        background: "#798baddb",
         overflowY: "hidden",
       }}
     >
       <Container
         maxWidth="xl"
-        sx={{ paddingTop: "80px", paddingBottom: "100px" }}
+        //sx={{ paddingTop: "80px", paddingBottom: "100px" }}
       >
         <Grid container>
-          <Grid item xs={12} md={6}>
-            <Box sx={{ height: "100%" }}>
-              <img
-                src="https://via.placeholder.com/500x500"
-                alt="Real Estate Application"
-                style={{ maxWidth: "100%", objectFit: "contain" }}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <Box
+              className="logo-name"
               sx={{
-                height: "100%",
+                height: "10vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -53,9 +47,10 @@ export default observer(function HomePage() {
               {userStore.isLoggedIn ? (
                 <Typography
                   variant="h2"
+                  className="text-dark"
                   sx={{
                     fontWeight: "bold",
-                    marginBottom: "20px",
+                    marginLeft: "20px",
                     color: "#fff",
                   }}
                 >
@@ -63,20 +58,56 @@ export default observer(function HomePage() {
                 </Typography>
               ) : (
                 <Typography
-                  variant="h2"
+                  variant="h3"
                   sx={{
-                    fontWeight: "bold",
-                    marginBottom: "20px",
+                    fontWeight: "normal",
+                    marginLeft: "20px",
                     color: "#fff",
                   }}
                 >
                   Bumipro
                 </Typography>
               )}
-
+            </Box>
+            <Box
+              className="menu-bar"
+              sx={{
+                height: "10vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Grid item xs={12} md={12} className="menu-list">
+                <Box>Properties</Box>
+                <Box>About</Box>
+                <Box>Contact</Box>
+              </Grid>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box className="img-portada" sx={{ height: "100%" }}>
+              <img
+                //src="https://via.placeholder.com/500x500"
+                src="https://cdn.pixabay.com/photo/2019/12/17/04/52/lounge-4700728_960_720.jpg"
+                alt="Real Estate Application"
+                //style={{ maxWidth: "100%", objectFit: "contain" }}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box
+              className="text-portada"
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
               <Typography
                 variant="h5"
-                sx={{ marginBottom: "40px", color: "#fff" }}
+                sx={{ marginBottom: "40px", color: "#fff", textAlign: "left" }}
               >
                 Take control of your properties with Bumipro. List your
                 properties with ease, and easily manage applications from
@@ -87,16 +118,16 @@ export default observer(function HomePage() {
               {!userStore.isLoggedIn ? (
                 <div>
                   <Button
+                    className="btn-login"
                     variant="contained"
-                    color="primary"
                     sx={{ marginRight: "10px" }}
                     onClick={handleLogin}
                   >
                     Login
                   </Button>
                   <Button
+                    className="btn-register"
                     variant="contained"
-                    color="secondary"
                     onClick={handleRegister}
                   >
                     Register
@@ -104,10 +135,10 @@ export default observer(function HomePage() {
                 </div>
               ) : (
                 <Button
+                  className="btn-register"
                   component={Link}
                   to="/dashboard"
                   variant="contained"
-                  color="secondary"
                 >
                   Go to my properties
                 </Button>
