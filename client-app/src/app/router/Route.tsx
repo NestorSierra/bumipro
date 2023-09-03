@@ -12,6 +12,7 @@ import PropertyPage from "../../features/property/form/PropertyPage";
 import ApplicationTable from "../../features/applications/ApplicationTable";
 import ApplicationDetails from "../../features/applications/ApplicationDetails";
 import RequireAuth from "./RequireAuth";
+import MyProperties from "../../features/property/dashboard/MyProperties";
 
 export const routes: RouteObject[] = [
   {
@@ -27,6 +28,7 @@ export const routes: RouteObject[] = [
             element: <ApplicationDetails />,
           },
           { path: "dashboard", element: <Dashboard /> },
+          { path: "myProperties/:location", element: <MyProperties /> },
           { path: "properties", element: <PropertyDashboard /> },
           { path: "properties/:id", element: <PropertyDetails /> },
           { path: "createProperty", element: <PropertyPage /> },

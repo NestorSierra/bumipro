@@ -3,10 +3,10 @@ import Banner from "./Banner";
 import { Card, CardContent, Typography } from "@mui/material";
 export default function Dashboard() {
   return (
-    <>
+    <div style={{ paddingBottom: "30px" }}>
       <Banner />
-      <Grid container spacing={3} marginTop={1} className="d-flex">
-        <Grid item xs={12} md={6} lg={6} xl={3} style={{ display: "flex" }}>
+      <Grid container spacing={3} marginTop={1}>
+        <Grid item xs={12} md={6} lg={6} xl={3} className="d-flex">
           <Card className="card">
             <CardContent>
               <Typography variant="h6">About Us</Typography>
@@ -52,6 +52,6 @@ export default function Dashboard() {
           </Card>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }

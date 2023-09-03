@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Application.Properties;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,27 +12,32 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProperty(Guid id)
         {
-            return HandleResult(await Mediator.Send(new Application.Properties.Details.Query { Id = id }));
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
+        [HttpGet("myown")]
+        public async Task<IActionResult> GetMyProperties([FromQuery] PropertyParams param)
+        {
+            return HandlePageResult(await Mediator.Send(new MyProperties.Query { Params = param }));
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetProperties([FromQuery] PropertyParams param)
         {
-            return HandlePageResult(await Mediator.Send(new Application.Properties.List.Query { Params = param }));
+            return HandlePageResult(await Mediator.Send(new List.Query { Params = param }));
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProperty(PropertyDTO propertyDTO)
         {
-            return HandleResult(await Mediator.Send(new Application.Properties.Create.Command { PropertyDTO = propertyDTO }));
+            return HandleResult(await Mediator.Send(new Create.Command { PropertyDTO = propertyDTO }));
         }
 
         //[Authorize(Policy = "IsOwnerOfProperty")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProperty(Guid id, [FromBody] PropertyDTO branchDTO)
         {
-            return HandleResult(await Mediator.Send(new Application.Properties.Edit.Command { Id = id, PropertyDTO = branchDTO }));
+            return HandleResult(await Mediator.Send(new Edit.Command { Id = id, PropertyDTO = branchDTO }));
         }
 
         [HttpPost("{id}/uploadPhoto")]

@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { Grid } from "@mui/material";
-import PropertyList from "./PropertyList";
-import PropertyFilters from "./PropertyFilters";
-import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
+import { useStore } from "../../../stores/store";
+import { Grid } from "@mui/material";
+import PropertyFilters from "./PropertyFilters";
 import PropertyListItemPlaceholder from "./PropertyListItemPlaceholder";
+import PropertyList from "./PropertyList";
 
-export default observer(function PropertyDashboard() {
+export default observer(function MyProperties() {
   const { propertyStore } = useStore();
-  const { myPropertiesRegistry, loadProperties, loadingInitial } =
+  const { myPropertiesRegistry, loadMyProperties, loadingInitial } =
     propertyStore;
 
   useEffect(() => {
-    if (myPropertiesRegistry.size <= 1) loadProperties();
-  }, [myPropertiesRegistry.size, loadProperties]);
+    if (myPropertiesRegistry.size <= 1) loadMyProperties();
+  }, [myPropertiesRegistry.size, loadMyProperties]);
 
   return (
     <Grid container spacing={2}>
       <Grid item md={4} sx={{ paddingLeft: 3 }}>
-        <PropertyFilters />
+        <PropertyFilters createProperty={true} />
       </Grid>
       <Grid item md={8}>
         {loadingInitial ? (
@@ -27,7 +27,7 @@ export default observer(function PropertyDashboard() {
             <PropertyListItemPlaceholder />
             <PropertyListItemPlaceholder />
           </>
-        ) : (          
+        ) : (
           <PropertyList />
         )}
       </Grid>

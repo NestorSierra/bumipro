@@ -8,12 +8,13 @@ using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Properties
 {
-    public class List
+    public class MyProperties
     {
         public class Query : IRequest<Result<PagedList<PropertyDTO>>>
         {
@@ -22,12 +23,13 @@ namespace Application.Properties
 
         public class Handler : IRequestHandler<Query, Result<PagedList<PropertyDTO>>>
         {
-
             private readonly IMapper _mapper;
             private readonly DataContext _context;
+            private readonly IUserAccessor _userAccessor;
 
-            public Handler(IMapper mapper, DataContext context)
+            public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
+                _userAccessor = userAccessor;
                 _context = context;
                 _mapper = mapper;
             }
@@ -35,12 +37,13 @@ namespace Application.Properties
             public async Task<Result<PagedList<PropertyDTO>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var query = _context.PropertyOwners
-                            .Include(t => t.Property)
-                            .ThenInclude(t => t.PropertyPhotos)
-                            .Include(t => t.AppUser)
-                            .Select(t => t.Property)
-                            .ProjectTo<PropertyDTO>(_mapper.ConfigurationProvider)
-                            .AsQueryable();
+                                            .Include(t => t.Property)
+                                            .ThenInclude(t => t.PropertyPhotos)
+                                            .Include(t => t.AppUser)
+                                            .Where(t => t.AppUser.UserName == _userAccessor.GetUsername())
+                                            .Select(t => t.Property)
+                                            .ProjectTo<PropertyDTO>(_mapper.ConfigurationProvider)
+                                            .AsQueryable();
 
                 if (!string.IsNullOrEmpty(request.Params.Country))
                 {
@@ -48,9 +51,7 @@ namespace Application.Properties
                 }
 
                 return Result<PagedList<PropertyDTO>>.Success(await PagedList<PropertyDTO>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));
-
             }
         }
-
     }
 }

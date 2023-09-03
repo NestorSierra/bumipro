@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -20,6 +21,14 @@ import { PropertyFormValues } from "../../../models/property";
 export default observer(function PropertyList() {
   const { propertyStore } = useStore();
   const { propertyByPrice } = propertyStore;
+
+  if (!propertyByPrice.length)
+    return (
+      <Alert severity="info">
+        There are currently no properties available for listing that match the
+        criteria set by your filters.
+      </Alert>
+    );
 
   return (
     <>
