@@ -5,7 +5,11 @@ import AddIcon from "@mui/icons-material/Add";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
-export default observer(function PropertyFilters() {
+interface Props {
+  createProperty?: boolean;
+}
+
+export default observer(function PropertyFilters({ createProperty }: Props) {
   const [suburb, setSuburb] = useState("");
   const [reference, setReference] = useState("");
   const [address, setAddress] = useState("");
@@ -73,17 +77,21 @@ export default observer(function PropertyFilters() {
           Search
         </Button>
 
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        <Button
-          variant="contained"
-          component={Link}
-          to="/createProperty"
-          fullWidth
-          color="success"
-          startIcon={<AddIcon />}
-        >
-          Add New Property
-        </Button>
+        {createProperty && (
+          <>
+            <Divider sx={{ mt: 2, mb: 2 }} />
+            <Button
+              variant="contained"
+              component={Link}
+              to="/createProperty"
+              fullWidth
+              color="success"
+              startIcon={<AddIcon />}
+            >
+              Add New Property
+            </Button>{" "}
+          </>
+        )}
       </CardContent>
     </Card>
   );

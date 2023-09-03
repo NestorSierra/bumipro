@@ -24,10 +24,10 @@ export default function Content({ children }: Props) {
       }}
     >
       <Toolbar />
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Grid container>{children}</Grid>
+      <div style={{ padding: "2em" }}>
+        {children}
         <Copyright sx={{ pt: 4 }} />
-      </Container>
+      </div>
     </Box>
   );
 }

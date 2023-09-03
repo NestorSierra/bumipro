@@ -113,7 +113,24 @@ export default class PropertyStore {
       });
       this.setPagination(result.pagination);
       this.setLoadingInitial(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  loadMyProperties = async () => {
+    this.loadingInitial = true;
+    try {
+      const result = await agent.Properties.listMyProperties(this.axiosParams);
+
+      result.data.forEach((property) => {
+        this.setProperty(property);
+      });
+      this.setPagination(result.pagination);
+      this.setLoadingInitial(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   setPredicate = (predicate: Map<string, string>) => {
