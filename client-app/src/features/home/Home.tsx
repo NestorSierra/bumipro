@@ -8,6 +8,7 @@ import { useStore } from "../../stores/store";
 import LoginForm from "../../users/LoginForm";
 import RegisterForm from "../../users/RegisterForm";
 import "./home.css";
+import { ModalSize } from "../../stores/modalStore";
 
 export default observer(function HomePage() {
   const { userStore, modalStore } = useStore();
@@ -17,7 +18,7 @@ export default observer(function HomePage() {
   }
 
   function handleRegister() {
-    modalStore.openModal("Register", <RegisterForm />);
+    modalStore.openModal("Register", <RegisterForm />, ModalSize.large);
   }
 
   return (

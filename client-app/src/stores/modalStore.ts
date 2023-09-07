@@ -4,6 +4,13 @@ interface Modal {
   open: boolean;
   title: string;
   body: JSX.Element | null;
+  size?: ModalSize;
+}
+
+export enum ModalSize {
+  small,
+  medium,
+  large,
 }
 
 export default class ModalStore {
@@ -11,16 +18,18 @@ export default class ModalStore {
     open: false,
     title: "",
     body: null,
+    size: ModalSize.small,
   };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  openModal = (title: string, content: JSX.Element) => {
+  openModal = (title: string, content: JSX.Element, size?: ModalSize) => {
     this.modal.open = true;
     this.modal.body = content;
     this.modal.title = title;
+    this.modal.size = size;
   };
 
   closeModal = () => {
