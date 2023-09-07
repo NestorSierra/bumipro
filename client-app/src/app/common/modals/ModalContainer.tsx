@@ -7,24 +7,17 @@ import { ModalSize } from "../../../stores/modalStore";
 export default observer(function ModalContainer() {
   const { modalStore } = useStore();
   const { modal } = modalStore;
-
-  if (modal.size === ModalSize.large) {
-    return (
-      <Dialog open={modalStore.modal.open} onClose={modalStore.closeModal}>
-        <DialogTitle>{modalStore.modal.title}</DialogTitle>
-        <DialogContent style={{ paddingTop: "10px" }}>
-          {modalStore.modal.body}
-        </DialogContent>
-      </Dialog>
-    );
-  }
+  const { open, title, body } = modalStore.modal;
+  const isLarge = modal.size === ModalSize.large;
 
   return (
-    <Dialog open={modalStore.modal.open} onClose={modalStore.closeModal}>
-      <DialogTitle>{modalStore.modal.title}</DialogTitle>
-      <DialogContent style={{ paddingTop: "10px" }}>
-        {modalStore.modal.body}
-      </DialogContent>
+    <Dialog
+      open={open}
+      onClose={modalStore.closeModal}
+      maxWidth={isLarge ? "xl" : undefined}
+    >
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent style={{ paddingTop: "10px" }}>{body}</DialogContent>
     </Dialog>
   );
 });
