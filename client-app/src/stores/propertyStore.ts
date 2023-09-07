@@ -129,6 +129,7 @@ export default class PropertyStore {
       this.setPagination(result.pagination);
       this.setLoadingInitial(false);
     } catch (error) {
+      this.setLoadingInitial(false);
       console.log(error);
     }
   };

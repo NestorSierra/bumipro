@@ -5,13 +5,17 @@ import { Grid } from "@mui/material";
 import PropertyFilters from "./PropertyFilters";
 import PropertyListItemPlaceholder from "./PropertyListItemPlaceholder";
 import PropertyList from "./PropertyList";
+import { useParams } from "react-router-dom";
 
 export default observer(function MyProperties() {
   const { propertyStore } = useStore();
   const { myPropertiesRegistry, loadMyProperties, loadingInitial } =
     propertyStore;
 
+  const { location } = useParams<{ location: string }>();
+
   useEffect(() => {
+    console.log(location);
     if (myPropertiesRegistry.size <= 1) loadMyProperties();
   }, [myPropertiesRegistry.size, loadMyProperties]);
 

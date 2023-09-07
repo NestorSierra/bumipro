@@ -28,7 +28,7 @@ export const routes: RouteObject[] = [
             element: <ApplicationDetails />,
           },
           { path: "dashboard", element: <Dashboard /> },
-          { path: "myProperties/:location", element: <MyProperties /> },
+          { path: "myProperties", element: <MyProperties /> },
           { path: "properties", element: <PropertyDashboard /> },
           { path: "properties/:id", element: <PropertyDetails /> },
           { path: "createProperty", element: <PropertyPage /> },
