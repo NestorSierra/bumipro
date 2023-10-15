@@ -8,6 +8,7 @@ import { PropertyPhoto } from "../models/propertyPhoto";
 export default class ApplicationStore {
   applicationsRegistry = new Map<string, Application>();
   selectedApplication: Application | undefined = undefined;
+  editMode = false;
   loading = false;
   loadingInitial = true;
   pagination: Pagination | null = null;
@@ -54,15 +55,19 @@ export default class ApplicationStore {
   };
 
   setApplication = (application: Application) => {
-    application.creationDate = application.creationDate.split("T")[0];
+    application.creationDate = application.creationDate;
     application.applicantName = application.applicant.displayName;
     this.applicationsRegistry.set(application.referenceNumber, application);
   };
 
   get applicationsByDate() {
-    return Array.from(this.applicationsRegistry.values()).sort(
-      (a, b) => Date.parse(a.creationDate) - Date.parse(b.creationDate)
-    );
+    return Array.from(this.applicationsRegistry.values()).sort((a, b) => {
+      if (a.creationDate && b.creationDate) {
+        return a.creationDate.getTime() - b.creationDate.getTime();
+      } else {
+        return 0;
+      }
+    });
   }
 
   loadApplication = async (referenceNumber: string) => {
@@ -109,4 +114,8 @@ export default class ApplicationStore {
       this.setLoadingInitial(false);
     }
   };
+
+  createApplication = () => {};
+
+  updateApplication = () => {};
 }

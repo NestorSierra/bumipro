@@ -9,6 +9,6 @@ export interface Application {
   propertyAddress: string;
   referenceNumber: string;
   property: Property;
-  creationDate: string;
+  creationDate: Date | null;
   status: string;
 }

@@ -5,19 +5,22 @@ import { Grid } from "@mui/material";
 import PropertyFilters from "./PropertyFilters";
 import PropertyListItemPlaceholder from "./PropertyListItemPlaceholder";
 import PropertyList from "./PropertyList";
-import { useParams } from "react-router-dom";
 
 export default observer(function MyProperties() {
   const { propertyStore } = useStore();
-  const { myPropertiesRegistry, loadMyProperties, loadingInitial } =
-    propertyStore;
-
-  const { location } = useParams<{ location: string }>();
+  const {
+    propertiesRegistry: myPropertiesRegistry,
+    loadMyProperties,
+    loadingInitial,
+    setApplicationMode,
+  } = propertyStore;
 
   useEffect(() => {
-    console.log(location);
-    if (myPropertiesRegistry.size <= 1) loadMyProperties();
-  }, [myPropertiesRegistry.size, loadMyProperties]);
+    if (myPropertiesRegistry.size <= 1) {
+      loadMyProperties();
+    }
+    setApplicationMode(false);
+  }, [myPropertiesRegistry.size, loadMyProperties, setApplicationMode]);
 
   return (
     <Grid container spacing={2}>

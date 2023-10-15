@@ -13,7 +13,8 @@ namespace Application.Core
 
             CreateMap<Domain.Property, PropertyDTO>()
             .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.PropertyPhotos.FirstOrDefault(t => t.IsMain).Url));
-            CreateMap<PropertyDTO, Domain.Property>();
+            CreateMap<PropertyDTO, Domain.Property>()
+                .ForMember(dest => dest.SearchLocation, opt => opt.MapFrom(src => string.Concat(src.Address, "_", src.Country, "_", src.State, "_", src.City, "_", src.Suburb, "_", src.PostCode)));
             CreateMap<AppUser, Profiles.Profile>()
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(t => t.IsMain).Url))
             .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => $"{src.FirstName} {src.FamilyName}"))
