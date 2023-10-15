@@ -128,32 +128,29 @@ export default observer(function PropertyForm({ id, property }: Props) {
               </Grid>
             </Grid>
             <MyTextArea name="description" label="Description" rows={3} />
-            <Grid container>
-              <Grid item xs={12}>
-                <ButtonGroup fullWidth>
-                  <LoadingButton
-                    type="submit"
-                    disabled={isSubmitting || !dirty || !isValid}
-                    color="primary"
-                    variant="contained"
-                    startIcon={<EditIcon />}
-                    loading={isSubmitting}
-                  >
-                    Save
-                  </LoadingButton>
 
-                  <Button
-                    component={Link}
-                    to={`/properties/${property.id}`}
-                    color="error"
-                    variant="contained"
-                    startIcon={<CancelIcon />}
-                  >
-                    Cancel
-                  </Button>
-                </ButtonGroup>
-              </Grid>
-            </Grid>
+            <ButtonGroup fullWidth>
+              <LoadingButton
+                type="submit"
+                disabled={isSubmitting || !dirty || !isValid}
+                color="primary"
+                variant="contained"
+                startIcon={<EditIcon />}
+                loading={isSubmitting}
+              >
+                Save
+              </LoadingButton>
+
+              <Button
+                component={Link}
+                to={`/properties/${property.id}`}
+                color="error"
+                variant="contained"
+                startIcon={<CancelIcon />}
+              >
+                Cancel
+              </Button>
+            </ButtonGroup>
           </Form>
         )}
       </Formik>

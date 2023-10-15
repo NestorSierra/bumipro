@@ -9,13 +9,15 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Banner() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [location, setLocation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const navigate = useNavigate();
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchQuery(event.target.value);
+    setLocation(event.target.value);
   }
 
   function handleCategoryChange(event: SelectChangeEvent) {
@@ -23,8 +25,7 @@ export default function Banner() {
   }
 
   function handleSearch() {
-    console.log("Search Query:", searchQuery);
-    console.log("Selected Category:", selectedCategory);
+    navigate(`/properties?location=${location}&category=${selectedCategory}`);
   }
 
   return (
@@ -38,7 +39,7 @@ export default function Banner() {
           variant="filled"
           size="small"
           label="Try a location where you want to live"
-          value={searchQuery}
+          value={location}
           onChange={handleInputChange}
           className="search-banner"
           InputProps={{

@@ -21,4 +21,27 @@ namespace Application.Core.Enums
             };
         }
     }
+
+    public static class PropertyCategoriesEnums
+    {
+        public const string House = "house";
+        public const string Apartment = "apartment";
+        public const string Room = "room";
+        public const string CarParkging = "carparking";
+        public const string Warehouse = "warehouse";
+
+        public static string GetName(string value)
+        {
+            return value switch
+            {
+                House => "House",
+                Apartment => "Apartment",
+                Room => "Room",
+                CarParkging => "Car Parking",
+                Warehouse => "Warehouse",
+                _ => "House",
+            };
+        }
+
+    }
 }

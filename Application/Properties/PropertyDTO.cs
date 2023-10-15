@@ -22,6 +22,8 @@ namespace Application.Properties
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
         public string ImageUrl { get; set; }
+        public string Category { get; set; }
+        public string SearchLocation { get; set; }
         public IEnumerable<Domain.PropertyPhoto> PropertyPhotos { get; set; }
     }
 }

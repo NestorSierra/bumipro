@@ -35,7 +35,7 @@ namespace Application.Properties
             {
 
                 var user = await _context.Users.FirstOrDefaultAsync(usr => usr.UserName == _userAccessor.GetUsername());
-                var property = _mapper.Map<Property>(request.PropertyDTO);
+                var property = _mapper.Map<Property>(request.PropertyDTO);               
 
                 var propertyOwner = new Domain.PropertyOwner
                 {

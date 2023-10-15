@@ -59,7 +59,7 @@ export default observer(function SideBar({ open, toggleDrawer }: Props) {
 
   const sideMenuItems = [
     { label: "Dashboard", Icon: <DashboardIcon />, to: "/dashboard" },
-    { label: "My Properties", Icon: <MenuBookIcon />, to: "/properties" },
+    { label: "My Properties", Icon: <MenuBookIcon />, to: "/myProperties" },
     { label: "Applications", Icon: <ViewListIcon />, to: "/applications" },
   ];
   return (

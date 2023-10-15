@@ -40,9 +40,10 @@ namespace Persistence
                     PostCode = "6000",
                     Price = 200000000,
                     Rooms = 5,
-                    PriceBySqm = 15000,  
+                    PriceBySqm = 15000,
                     State = "T",
-                    Status = "A"
+                    Status = "A",
+                    Category = "house"
                 };
 
                 context.Properties.Add(properties);

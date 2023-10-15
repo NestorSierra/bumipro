@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { Property, PropertyFormValues } from "../models/property";
 import { Pagination } from "../models/pagination";
 import { PagingParams } from "./../models/pagination";
@@ -8,7 +8,7 @@ import { CarouselImageItem } from "./../models/carouselImageItem";
 import { PropertyPhoto } from "../models/propertyPhoto";
 
 export default class PropertyStore {
-  myPropertiesRegistry = new Map<string, PropertyFormValues>();
+  propertiesRegistry = new Map<string, PropertyFormValues>();
   selectedProperty: Property | undefined;
   editMode = false;
   loading = false;
@@ -18,9 +18,19 @@ export default class PropertyStore {
   pagingParams = new PagingParams();
   predicate = new Map().set("all", true);
   carouselImageItems: CarouselImageItem[] | undefined;
+  applicationMode = false;
 
   constructor() {
     makeAutoObservable(this);
+
+    reaction(
+      () => this.predicate.keys(),
+      () => {
+        this.pagingParams = new PagingParams();
+        this.propertiesRegistry.clear();
+        this.loadProperties();
+      }
+    );
   }
 
   get axiosParams() {
@@ -37,7 +47,7 @@ export default class PropertyStore {
   }
 
   get propertyByPrice() {
-    return Array.from(this.myPropertiesRegistry.values()).sort((a, b) => {
+    return Array.from(this.propertiesRegistry.values()).sort((a, b) => {
       const nameA = a.price;
       const nameB = b.price;
 
@@ -104,6 +114,7 @@ export default class PropertyStore {
   };
 
   loadProperties = async () => {
+    console.log("Loading my properties");
     this.loadingInitial = true;
     try {
       const result = await agent.Properties.list(this.axiosParams);
@@ -129,6 +140,7 @@ export default class PropertyStore {
       this.setPagination(result.pagination);
       this.setLoadingInitial(false);
     } catch (error) {
+      this.setLoadingInitial(false);
       console.log(error);
     }
   };
@@ -150,13 +162,17 @@ export default class PropertyStore {
     this.loadingInitial = state;
   };
 
+  setApplicationMode = (applicationMode: boolean) => {
+    this.applicationMode = applicationMode;
+  };
+
   updateProperty = async (property: Property) => {
     try {
       await agent.Properties.update(property);
       runInAction(() => {
         if (property.id !== "") {
           let updateProperty = { ...this.getProperty(property.id), property };
-          this.myPropertiesRegistry.set(property.id, property as Property);
+          this.propertiesRegistry.set(property.id, property as Property);
           this.selectedProperty = updateProperty as Property;
         }
       });
@@ -240,10 +256,10 @@ export default class PropertyStore {
   };
 
   private getProperty = (id: string) => {
-    return this.myPropertiesRegistry.get(id);
+    return this.propertiesRegistry.get(id);
   };
 
   private setProperty = (property: PropertyFormValues) => {
-    this.myPropertiesRegistry.set(property.id, property);
+    this.propertiesRegistry.set(property.id, property);
   };
 }

@@ -8,12 +8,19 @@ import PropertyList from "./PropertyList";
 
 export default observer(function MyProperties() {
   const { propertyStore } = useStore();
-  const { myPropertiesRegistry, loadMyProperties, loadingInitial } =
-    propertyStore;
+  const {
+    propertiesRegistry: myPropertiesRegistry,
+    loadMyProperties,
+    loadingInitial,
+    setApplicationMode,
+  } = propertyStore;
 
   useEffect(() => {
-    if (myPropertiesRegistry.size <= 1) loadMyProperties();
-  }, [myPropertiesRegistry.size, loadMyProperties]);
+    if (myPropertiesRegistry.size <= 1) {
+      loadMyProperties();
+    }
+    setApplicationMode(false);
+  }, [myPropertiesRegistry.size, loadMyProperties, setApplicationMode]);
 
   return (
     <Grid container spacing={2}>

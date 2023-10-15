@@ -13,6 +13,7 @@ import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
+import ServerError from "../../features/errors/ServerError";
 
 function App() {
   const mdTheme = createTheme();

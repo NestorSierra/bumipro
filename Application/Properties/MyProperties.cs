@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +6,6 @@ using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -48,6 +45,16 @@ namespace Application.Properties
                 if (!string.IsNullOrEmpty(request.Params.Country))
                 {
                     query = query.Where(t => t.Country == request.Params.Country).AsQueryable();
+                }
+
+                if (!string.IsNullOrEmpty(request.Params.Location))
+                {
+                    query = query.Where(t => t.Address == request.Params.Location).AsQueryable();
+                }
+
+                if (!string.IsNullOrEmpty(request.Params.Category))
+                {
+                    query = query.Where(t => t.Address == request.Params.Category).AsQueryable();
                 }
 
                 return Result<PagedList<PropertyDTO>>.Success(await PagedList<PropertyDTO>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));

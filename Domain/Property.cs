@@ -21,8 +21,10 @@ namespace Domain
         public string PostCode { get; set; }
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
+        public string Category { get; set; }
+        public string SearchLocation { get; set; }
         public ICollection<Application> Applications { get; set; }
         public ICollection<PropertyOwner> PropertyOwners { get; set; } = new List<PropertyOwner>();
-        public ICollection<PropertyPhoto> PropertyPhotos {get; set;}
+        public ICollection<PropertyPhoto> PropertyPhotos { get; set; }
     }
 }

@@ -88,7 +88,7 @@ const requests = {
 const Properties = {
   listMyProperties: (params: URLSearchParams) =>
     axios
-      .get<PaginatedResult<PropertyFormValues[]>>("/properties/myown", {
+      .get<PaginatedResult<PropertyFormValues[]>>("/properties/getMyOwn", {
         params,
       })
       .then(responseBody),

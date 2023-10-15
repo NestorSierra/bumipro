@@ -6,7 +6,7 @@ export default observer(function ServerError() {
   const { commonStore } = useStore();
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xl">
       <Typography variant="h3" component="h1" gutterBottom>
         Error en el servidor
       </Typography>

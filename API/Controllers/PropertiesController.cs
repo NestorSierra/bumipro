@@ -15,7 +15,8 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
         }
 
-        [HttpGet("myown")]
+        [Route("getMyOwn")]
+        [HttpGet]
         public async Task<IActionResult> GetMyProperties([FromQuery] PropertyParams param)
         {
             return HandlePageResult(await Mediator.Send(new MyProperties.Query { Params = param }));

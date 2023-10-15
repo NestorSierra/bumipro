@@ -11,6 +11,7 @@ import React from "react";
 import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react-lite";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
 import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
@@ -20,7 +21,7 @@ import { PropertyFormValues } from "../../../models/property";
 
 export default observer(function PropertyList() {
   const { propertyStore } = useStore();
-  const { propertyByPrice } = propertyStore;
+  const { propertyByPrice, applicationMode } = propertyStore;
 
   if (!propertyByPrice.length)
     return (
@@ -34,18 +35,32 @@ export default observer(function PropertyList() {
     <>
       {propertyByPrice.map((property: PropertyFormValues) => (
         <Grid key={property.id} item xs={12} marginBottom={3}>
-          <Card>
+          <Card style={{ height: "210px", maxHeight: "210px" }}>
             <CardContent style={{ padding: "0px" }}>
               <Grid
                 container
                 spacing={2}
-                style={{ alignItems: "center", padding: "0px" }}
+                style={{
+                  alignItems: "center",
+                  padding: "0px",
+                  marginTop: "0px",
+                }}
               >
-                <Grid item xs={4} style={{ display: "flex" }}>
-                  {property.imageUrl && (
+                <Grid
+                  item
+                  xs={4}
+                  style={{ display: "flex", paddingTop: "0px" }}
+                >
+                  {property.imageUrl ? (
                     <img
                       alt="property image"
                       src={property.imageUrl}
+                      style={{ width: "100%" }}
+                    />
+                  ) : (
+                    <img
+                      alt="noImage"
+                      src="/assets/without-image.jpg"
                       style={{ width: "100%" }}
                     />
                   )}
@@ -74,30 +89,41 @@ export default observer(function PropertyList() {
                   >
                     {property.description}
                   </Typography>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Button
-                        component={Link}
-                        to={`/properties/${property.id}`}
-                        color="primary"
-                        variant="contained"
-                        startIcon={<ListIcon />}
-                        fullWidth
-                      >
-                        More Details...
-                      </Button>
+                  {applicationMode ? (
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      startIcon={<CheckIcon />}
+                      fullWidth
+                    >
+                      Apply
+                    </Button>
+                  ) : (
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Button
+                          component={Link}
+                          to={`/properties/${property.id}`}
+                          color="primary"
+                          variant="contained"
+                          startIcon={<ListIcon />}
+                          fullWidth
+                        >
+                          More Details...
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          color="error"
+                          variant="contained"
+                          startIcon={<DeleteIcon />}
+                          fullWidth
+                        >
+                          Delete
+                        </Button>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Button
-                        color="error"
-                        variant="contained"
-                        startIcon={<DeleteIcon />}
-                        fullWidth
-                      >
-                        Delete
-                      </Button>
-                    </Grid>
-                  </Grid>
+                  )}
                 </Grid>
               </Grid>
             </CardContent>
