@@ -1,8 +1,20 @@
-.css-asg6n3-MuiContainer-root, .css-19r6kue-MuiContainer-root{
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+@media (max-width: 299px){
+  .css-0{
+    margin: 0px 10px;
+  }
 }
+
+@media (min-width: 300px){
+  .css-0{
+    margin: 0px 30px;
+  }
+}
+
 @media (max-width: 599px){
+  .css-11lq3yg-MuiGrid-root{
+    height: 100%;
+    margin-bottom: 20px;
+  }
   .img-portada{
     height: 70vh !important;
   }
@@ -11,8 +23,7 @@
   }
 }
 
-@media (min-width: 600px){
-  
+@media (min-width: 600px) {
   .css-asg6n3-MuiContainer-root, .css-19r6kue-MuiContainer-root{
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -20,23 +31,41 @@
   .css-11lq3yg-MuiGrid-root{
     height: 100vh;
   }
-  .logo-name{
-    width: 50%;
-    float: left;
-  }
-  .menu-bar{
-    width: 50%;
-    float: right;
-  }
-
 }
 
-@media (min-width: 1536px){
+@media (min-width: 670px){
   .css-19r6kue-MuiContainer-root{
     width: 100vw !important;
     max-width: 100vw !important;
   }
 }
+
+@media (min-width: 720px){
+  .menu-bar{
+    width: 60%;
+    float: right;
+  }
+  .logo-name{
+    width: 40%;
+    float: left;
+  }
+}
+@media (min-width: 900px){
+  .css-10klw3m > img{
+    height: 90vh !important;
+  }
+  .css-comkx2{
+    height: 90vh !important;
+  }
+}
+
+/* Estilos generales para todas las resolusiones */
+
+.css-asg6n3-MuiContainer-root, .css-19r6kue-MuiContainer-root{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 .css-1idn90j-MuiGrid-root{
   align-self: center;
 }
@@ -50,10 +79,6 @@
   color: #fff;
   font-weight: 400;
   font-size: 1.2rem;
-}
-
-.css-0{
-  margin: 0px 30px;
 }
 
 .css-10klw3m{

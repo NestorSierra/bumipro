@@ -2,16 +2,18 @@ import { ErrorMessage, Form, Formik } from "formik";
 import MyTextInput from "../app/common/form/MyTextInput";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
-import { Alert } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { useState } from "react";
 import { UserRegisterFormValues } from "../models/user";
 import * as Yup from "yup";
 import ValidationError from "../features/errors/ValidationError";
+import "./RegisterForm.css";
 
 export default observer(function RegisterForm() {
-  const { userStore } = useStore();
+  const { userStore, modalStore } = useStore();
   const [user, setUser] = useState<UserRegisterFormValues>(
     new UserRegisterFormValues()
   );
@@ -58,27 +60,29 @@ export default observer(function RegisterForm() {
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-          <MyTextInput label="Email" name="email"></MyTextInput>
-          <MyTextInput label="Username" name="username"></MyTextInput>
-          <MyTextInput
-            label="Password"
-            name="password"
-            type="password"
-          ></MyTextInput>
-          <MyTextInput
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-          ></MyTextInput>
-          <MyTextInput label="First Name" name="firstName"></MyTextInput>
-          <MyTextInput label="Last Name" name="familyName"></MyTextInput>
-          <MyTextInput label="Profesion" name="profesion"></MyTextInput>
-          <MyTextInput
-            label="Relationship Status"
-            name="relationshipStatus"
-          ></MyTextInput>
-          <MyTextInput label="Phone" name="phone"></MyTextInput>
-          <MyTextInput label="Mobile" name="mobile"></MyTextInput>
+          <Grid>
+            <MyTextInput label="Email" name="email"></MyTextInput>
+            <MyTextInput label="Username" name="username"></MyTextInput>
+            <MyTextInput
+              label="Password"
+              name="password"
+              type="password"
+            ></MyTextInput>
+            <MyTextInput
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+            ></MyTextInput>
+            <MyTextInput label="First Name" name="firstName"></MyTextInput>
+            <MyTextInput label="Last Name" name="familyName"></MyTextInput>
+            <MyTextInput label="Profesion" name="profesion"></MyTextInput>
+            <MyTextInput
+              label="Relationship Status"
+              name="relationshipStatus"
+            ></MyTextInput>
+            <MyTextInput label="Phone" name="phone"></MyTextInput>
+            <MyTextInput label="Mobile" name="mobile"></MyTextInput>
+          </Grid>
           <ErrorMessage
             name="error"
             render={() => <ValidationError errors={errors.error} />}
@@ -91,8 +95,17 @@ export default observer(function RegisterForm() {
             loading={isSubmitting}
             startIcon={<SaveIcon />}
           >
-            Save
+            Register
           </LoadingButton>
+          <Button
+            color="error"
+            variant="outlined"
+            style={{ marginLeft: "20px" }}
+            startIcon={<CloseIcon />}
+            onClick={modalStore.closeModal}
+          >
+            Cancel
+          </Button>
         </Form>
       )}
     </Formik>

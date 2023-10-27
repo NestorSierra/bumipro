@@ -2,12 +2,13 @@ import { ErrorMessage, Form, Formik } from "formik";
 import MyTextInput from "../app/common/form/MyTextInput";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
-import { Alert } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 
 export default observer(function LoginForm() {
-  const { userStore } = useStore();
+  const { userStore, modalStore } = useStore();
 
   return (
     <Formik
@@ -45,8 +46,17 @@ export default observer(function LoginForm() {
             loading={isSubmitting}
             startIcon={<SaveIcon />}
           >
-            Save
+            Login
           </LoadingButton>
+          <Button
+            color="error"
+            variant="outlined"
+            style={{ marginLeft: "20px" }}
+            startIcon={<CloseIcon />}
+            onClick={modalStore.closeModal}
+          >
+            Cancel
+          </Button>
         </Form>
       )}
     </Formik>
