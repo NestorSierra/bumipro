@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
 import { Alert, Button } from "@mui/material";
+import "./LoginForm.css";
 
 export default observer(function LoginForm() {
   const { userStore, modalStore } = useStore();

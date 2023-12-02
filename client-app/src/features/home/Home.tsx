@@ -26,7 +26,7 @@ export default observer(function HomePage() {
       sx={{
         //background: "linear-gradient(135deg, #3C3B3F, #605C3C, #A5A04A)",
         //height: "100vh",
-        background: "#798baddb",
+        background: "rgb(215 199 184 / 50%)",
         overflowY: "hidden",
       }}
     >
@@ -48,22 +48,23 @@ export default observer(function HomePage() {
               {userStore.isLoggedIn ? (
                 <Typography
                   variant="h2"
-                  className="text-dark"
                   sx={{
-                    fontWeight: "bold",
+                    fontWeight: "normal",
+                    fontSize: "2.75rem",
                     marginLeft: "20px",
-                    color: "#fff",
+                    color: "#362d28",
                   }}
                 >
                   Welcome to Bumipro
                 </Typography>
               ) : (
                 <Typography
-                  variant="h3"
+                  variant="h2"
                   sx={{
                     fontWeight: "normal",
+                    fontSize: "2.75rem",
                     marginLeft: "20px",
-                    color: "#fff",
+                    color: "#362d28",
                   }}
                 >
                   Bumipro
@@ -90,7 +91,7 @@ export default observer(function HomePage() {
             <Box className="img-portada" sx={{ height: "100%" }}>
               <img
                 //src="https://via.placeholder.com/500x500"
-                src="https://cdn.pixabay.com/photo/2019/12/17/04/52/lounge-4700728_960_720.jpg"
+                src="https://cdn.pixabay.com/photo/2016/04/18/08/50/kitchen-1336160_1280.jpg"
                 alt="Real Estate Application"
                 //style={{ maxWidth: "100%", objectFit: "contain" }}
               />
@@ -108,7 +109,11 @@ export default observer(function HomePage() {
             >
               <Typography
                 variant="h5"
-                sx={{ marginBottom: "40px", color: "#fff", textAlign: "left" }}
+                sx={{
+                  marginBottom: "40px",
+                  color: "#362d28",
+                  textAlign: "left",
+                }}
               >
                 Take control of your properties with Bumipro. List your
                 properties with ease, and easily manage applications from

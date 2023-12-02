@@ -1,3 +1,7 @@
+body{
+  font-family: 'Roboto', sans-serif, Helvetica, 'Segoe UI', Tahoma, Geneva, Verdana;
+}
+
 @media (max-width: 299px){
   .css-0{
     margin: 0px 10px;
@@ -75,8 +79,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-family: "Roboto";
-  color: #fff;
+  color: #362d28;
   font-weight: 400;
   font-size: 1.2rem;
 }
@@ -107,7 +110,7 @@
 
 .btn-login{
   color: #f5f5f5 !important;
-  background-color: #1976d2 !important;
+  background-color: #d21919 !important;
   margin-right: 10px;
 }
 
