@@ -108,4 +108,3 @@ export default observer(function ApplicationTable() {
     </Card>
   );
 });
-``
