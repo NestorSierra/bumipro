@@ -14,6 +14,8 @@ import { observer } from "mobx-react-lite";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import ServerError from "../../features/errors/ServerError";
+import { Copyright } from "@mui/icons-material";
+import zIndex from "@mui/material/styles/zIndex";
 
 function App() {
   const mdTheme = createTheme();
@@ -50,13 +52,19 @@ function App() {
         </ThemeProvider>
       ) : (
         <ThemeProvider theme={mdTheme}>
+          <CssBaseline />
           <Box sx={{ display: "flex" }}>
-            <CssBaseline />
             <NavBar open={open} toggleDrawer={toggleDrawer} />
             <SideBar open={open} toggleDrawer={toggleDrawer} />
-            <Content>
-              <Outlet />
-            </Content>
+            <Box
+              component="main"
+              sx={{ flexGrow: 1, paddingLeft: open ? "220px" : "50px" }}
+            >
+              <Content>
+                <Outlet />
+              </Content>
+            </Box>
+            <Copyright sx={{ pt: 4, zIndex: 20, position: "fixed" }} />
           </Box>
         </ThemeProvider>
       )}

@@ -36,9 +36,9 @@ namespace API.Controllers
 
         //[Authorize(Policy = "IsOwnerOfProperty")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProperty(Guid id, [FromBody] PropertyDTO branchDTO)
+        public async Task<IActionResult> UpdateProperty(Guid id, [FromBody] PropertyDTO propertyDTO)
         {
-            return HandleResult(await Mediator.Send(new Edit.Command { Id = id, PropertyDTO = branchDTO }));
+            return HandleResult(await Mediator.Send(new Edit.Command { Id = id, PropertyDTO = propertyDTO }));
         }
 
         [HttpPost("{id}/uploadPhoto")]

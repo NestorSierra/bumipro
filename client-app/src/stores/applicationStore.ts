@@ -1,13 +1,16 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { Pagination, PagingParams } from "../models/pagination";
 import agent from "../app/api/agent";
-import { Application } from "../models/application";
+import { Application, ApplicationFormValues } from "../models/application";
 import { CarouselImageItem } from "../models/carouselImageItem";
 import { PropertyPhoto } from "../models/propertyPhoto";
+import { Applicant } from "../models/user";
+import { router } from "../app/router/Route";
 
 export default class ApplicationStore {
   applicationsRegistry = new Map<string, Application>();
   selectedApplication: Application | undefined = undefined;
+  currentApplicant: Applicant | undefined = undefined;
   editMode = false;
   loading = false;
   loadingInitial = true;
@@ -115,7 +118,37 @@ export default class ApplicationStore {
     }
   };
 
-  createApplication = () => {};
+  createApplication = async (application: ApplicationFormValues) => {
+    try {
+      await agent.Applications.create(application);
+      router.navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
 
-  updateApplication = () => {};
+  updateApplication = async (application: ApplicationFormValues) => {
+    try {
+      await agent.Applications.update(application);
+      router.navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getCurrentApplicant = async () => {
+    try {
+      const applicant = await agent.Accounts.currentApplicant();
+      runInAction(() => {
+        console.log("Applicant loaded");
+        this.currentApplicant = applicant;
+        console.log(applicant);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }

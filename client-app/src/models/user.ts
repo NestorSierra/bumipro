@@ -115,3 +115,45 @@ export interface Applicant {
   indigenousType: number | null;
   image: string;
 }
+
+export class ApplicantFormValues {
+  id: string = "";
+  displayName: string = "";
+  about: string = "";
+  email: string = "";
+  phone: string = "";
+  mobile: string = "";
+  userType: string = "";
+  status: string = "";
+  profession: string = "";
+  relationshipStatus: string = "";
+  salaryPerYear: number = 0;
+  country: string = "";
+  isAdult: boolean = true;
+  city: string = "";
+  postcode: string = "";
+  isIndigenous: boolean = false;
+  indigenousType: number | null = null;
+  image: string = "";
+
+  constructor(applicant?: ApplicantFormValues) {
+    if (applicant) {
+      this.id = applicant.id;
+      this.displayName = applicant.displayName;
+      this.about = applicant.about;
+      this.email = applicant.email;
+      this.phone = applicant.phone;
+      this.mobile = applicant.mobile;
+      this.userType = applicant.userType;
+      this.status = applicant.status;
+      this.profession = applicant.profession;
+      this.relationshipStatus = applicant.relationshipStatus;
+      this.salaryPerYear = applicant.salaryPerYear;
+      this.city = applicant.city;
+      this.isIndigenous = applicant.isIndigenous;
+      this.postcode = applicant.postcode;
+      this.indigenousType = applicant.indigenousType;
+      this.image = applicant.image;
+    }
+  }
+}

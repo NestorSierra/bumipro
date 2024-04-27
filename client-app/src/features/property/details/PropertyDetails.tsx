@@ -35,12 +35,12 @@ export default observer(function PropertyDetails() {
 
   return (
     <Card style={{ width: "100%" }}>
-      <CardContent style={{ padding: "0px" }}>
+      <CardContent>
         <PropertyInfo
           property={property}
           carouselImageItems={carouselImageItems}
         />
-        <Grid container spacing={2}>
+        <Grid container spacing={2} style={{ padding: "0px", paddingBottom: "10px" }}>
           <Grid item xs={6}>
             <Button
               component={Link}
@@ -53,7 +53,7 @@ export default observer(function PropertyDetails() {
               Edit
             </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} >
             <Button
               component={Link}
               to="/properties"

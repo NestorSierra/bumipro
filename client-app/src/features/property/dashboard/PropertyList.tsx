@@ -35,8 +35,14 @@ export default observer(function PropertyList() {
     <>
       {propertyByPrice.map((property: PropertyFormValues) => (
         <Grid key={property.id} item xs={12} marginBottom={3}>
-          <Card style={{ height: "210px", maxHeight: "210px" }}>
-            <CardContent style={{ padding: "0px" }}>
+          <Card
+            style={{
+              height: "210px",
+              maxHeight: "210px",
+              display: "flex",
+            }}
+          >
+            <CardContent style={{ padding: "0px", width: "100%" }}>
               <Grid
                 container
                 spacing={2}
@@ -51,25 +57,35 @@ export default observer(function PropertyList() {
                   xs={4}
                   style={{ display: "flex", paddingTop: "0px" }}
                 >
-                  {property.imageUrl ? (
-                    <img
-                      alt="property image"
-                      src={property.imageUrl}
-                      style={{ width: "100%" }}
-                    />
-                  ) : (
-                    <img
-                      alt="noImage"
-                      src="/assets/without-image.jpg"
-                      style={{ width: "100%" }}
-                    />
-                  )}
+                  <div style={{ width: "100%" }}>
+                    {property.imageUrl ? (
+                      <img
+                        alt="property image"
+                        src={property.imageUrl}
+                        style={{
+                          width: "100%",
+                          height: "210px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      <img
+                        alt="noImage"
+                        src="/assets/without-image.jpg"
+                        style={{
+                          width: "100%",
+                          height: "210px",
+                          objectFit: "contain",
+                        }}
+                      />
+                    )}
+                  </div>
                 </Grid>
                 <Grid item xs={8} style={{ padding: "0px 10px" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     {property.address}
                   </Typography>
-                  <div style={{ display: "flex", marginBottom: "20px" }}>
+                  <div style={{ display: "flex" }}>
                     <Chip icon={<BedIcon />} label={property.rooms ?? 0} />
                     <Chip
                       icon={<BathtubIcon />}
@@ -87,10 +103,14 @@ export default observer(function PropertyList() {
                     color="text.secondary"
                     sx={{ marginBottom: 2 }}
                   >
-                    {property.description}
+                    {property.description && property.description.length > 100
+                      ? property.description.substring(0, 100) + "..."
+                      : property.description}
                   </Typography>
                   {applicationMode ? (
                     <Button
+                      component={Link}
+                      to={`/applications/create/${property.id}`}
                       color="primary"
                       variant="contained"
                       startIcon={<CheckIcon />}

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.Core;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Properties
@@ -29,12 +30,15 @@ namespace Application.Properties
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var currentProperty = await _context.Properties.FindAsync(request.Id);
+                var currentProperty = await _context.Properties.Include(t => t.PropertyPhotos).FirstOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 
                 if (currentProperty == null)
                     return null;
 
+                request.PropertyDTO.PropertyPhotos = null;
+
                 _mapper.Map(request.PropertyDTO, currentProperty);
+
 
                 await _context.SaveChangesAsync();
 

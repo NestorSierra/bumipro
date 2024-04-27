@@ -11,9 +11,9 @@ namespace Application.Core
         public MappingProfiles()
         {
 
-            CreateMap<Domain.Property, PropertyDTO>()
+            CreateMap<Property, PropertyDTO>()
             .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.PropertyPhotos.FirstOrDefault(t => t.IsMain).Url));
-            CreateMap<PropertyDTO, Domain.Property>()
+            CreateMap<PropertyDTO, Property>()
                 .ForMember(dest => dest.SearchLocation, opt => opt.MapFrom(src => string.Concat(src.Address, "_", src.Country, "_", src.State, "_", src.City, "_", src.Suburb, "_", src.PostCode)));
             CreateMap<AppUser, Profiles.Profile>()
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(t => t.IsMain).Url))
@@ -22,6 +22,7 @@ namespace Application.Core
             CreateMap<AppUser, Applicant.ApplicantDTO>()
              .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(t => t.IsMain).Url))
              .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => $"{src.FirstName} {src.FamilyName}"));
+            CreateMap<ApplicationDTO, Domain.Application>();
 
             CreateMap<Profiles.Profile, AppUser>();
             CreateMap<Profiles.ProfileFormValues, AppUser>()

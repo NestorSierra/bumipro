@@ -13,6 +13,7 @@ import ApplicationTable from "../../features/applications/ApplicationTable";
 import ApplicationDetails from "../../features/applications/ApplicationDetails";
 import RequireAuth from "./RequireAuth";
 import MyProperties from "../../features/property/dashboard/MyProperties";
+import ApplicationForm from "../../features/applications/ApplicationForm";
 
 export const routes: RouteObject[] = [
   {
@@ -24,6 +25,14 @@ export const routes: RouteObject[] = [
         children: [
           { path: "applications", element: <ApplicationTable /> },
           {
+            path: "applications/create/:propertyId",
+            element: <ApplicationForm />,
+          },
+          {
+            path: "applications/manage/:id",
+            element: <ApplicationForm />,
+          },
+          {
             path: "applications/:referenceNumber",
             element: <ApplicationDetails />,
           },
@@ -32,6 +41,7 @@ export const routes: RouteObject[] = [
           { path: "properties", element: <PropertyDashboard /> },
           { path: "properties/:id", element: <PropertyDetails /> },
           { path: "createProperty", element: <PropertyPage /> },
+
           { path: "properties/manage/:id", element: <PropertyPage /> },
           { path: "profiles/:username", element: <ProfilePage /> },
         ],

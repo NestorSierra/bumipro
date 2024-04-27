@@ -3,7 +3,9 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
 import { useStore } from "../../stores/store";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -11,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import DataGridEmpty from "../../app/common/datagrid/DataGridEmpty";
 
 export default observer(function ApplicationTable() {
   const { applicationStore } = useStore();
@@ -26,36 +29,34 @@ export default observer(function ApplicationTable() {
     if (applicationsRegistry.size <= 0) loadApplications();
   }, [applicationsRegistry, loadApplications]);
 
-  console.log(applicationsByDate);
-
   const columns: GridColDef[] = [
     {
       field: "applicantName",
       headerName: "Applicant",
-      width: 200,
+      flex: 1,
     },
     {
       field: "propertyAddress",
       headerName: "Property",
-      width: 300,
+      flex: 1,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 100,
+      flex: 1,
     },
     {
       field: "creationDate",
       headerName: "Creation Date",
-      width: 100,
+      flex: 1,
     },
     {
       field: "Details",
       headerName: "",
-      width: 100,
       sortable: false,
       filterable: false,
       editable: false,
+      flex: 1,
       renderCell: (params) => {
         return (
           <Button
@@ -82,21 +83,29 @@ export default observer(function ApplicationTable() {
         </Typography>
       </CardHeader>
       <CardContent>
-        <DataGrid
-          getRowId={(row) => row.referenceNumber}
-          rows={applicationsByDate}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                page: pagination?.currentPage! - 1,
-                pageSize: pagination?.itemsPerPage,
+        <Box sx={{ width: "100%" }}>
+          <DataGrid
+            getRowId={(row) => row.referenceNumber}
+            rows={applicationsByDate}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  page: pagination?.currentPage! - 1,
+                  pageSize: pagination?.itemsPerPage,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[5, 10, 25]}
-        ></DataGrid>
+            }}
+            slots={{
+              noRowsOverlay: () => (
+                <DataGridEmpty message="There are no applications to show" />
+              ),
+            }}
+            pageSizeOptions={[5, 10, 25]}
+          ></DataGrid>
+        </Box>
       </CardContent>
     </Card>
   );
 });
+``

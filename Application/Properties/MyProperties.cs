@@ -52,9 +52,9 @@ namespace Application.Properties
                     query = query.Where(t => t.Address == request.Params.Location).AsQueryable();
                 }
 
-                if (!string.IsNullOrEmpty(request.Params.Category))
+                if (!string.IsNullOrEmpty(request.Params.Category) && request.Params.Category != "all")
                 {
-                    query = query.Where(t => t.Address == request.Params.Category).AsQueryable();
+                    query = query.Where(t => t.Category == request.Params.Category).AsQueryable();
                 }
 
                 return Result<PagedList<PropertyDTO>>.Success(await PagedList<PropertyDTO>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize));

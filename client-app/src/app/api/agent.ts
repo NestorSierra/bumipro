@@ -5,13 +5,15 @@ import { store } from "../../stores/store";
 import { router } from "../router/Route";
 import { PropertyFormValues } from "./../../models/property";
 import {
+  Applicant,
   Photo,
   Profile,
   User,
   UserFormValues,
   UserRegisterFormValues,
 } from "../../models/user";
-import { Application } from "../../models/application";
+import { Application, ApplicationFormValues } from "../../models/application";
+import { request } from "http";
 
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
@@ -120,6 +122,7 @@ const Properties = {
 
 const Accounts = {
   current: () => requests.get<User>("/accounts"),
+  currentApplicant: () => requests.get<Applicant>("/accounts/getApplicant"),
   login: (user: UserFormValues) => requests.post<User>("/accounts/login", user),
   register: (user: UserRegisterFormValues) =>
     requests.post<User>("/accounts/register", user),
@@ -132,6 +135,13 @@ const Applications = {
     axios
       .get<PaginatedResult<Application[]>>("/applications", { params })
       .then(responseBody),
+  create: (application: ApplicationFormValues) =>
+    requests.post<void>(`/applications/`, application),
+  update: (application: ApplicationFormValues) =>
+    requests.put<void>(
+      `/applications/${application.referenceNumber}`,
+      application
+    ),
 };
 
 const Profiles = {

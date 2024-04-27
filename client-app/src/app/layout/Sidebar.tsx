@@ -63,7 +63,12 @@ export default observer(function SideBar({ open, toggleDrawer }: Props) {
     { label: "Applications", Icon: <ViewListIcon />, to: "/applications" },
   ];
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      open={open}
+      sx={{ position: "fixed", height: "100vh", zIndex: 20 }}
+    >
       <Toolbar
         sx={{
           display: "flex",

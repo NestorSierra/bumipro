@@ -20,7 +20,7 @@ export default observer(function ProfileHeader({ profile }: Props) {
   return (
     <Card>
       <CardContent>
-        <Grid container>
+        <Grid container style={{ height: "auto" }}>
           <Grid item xs={8}>
             <Grid container alignItems="center" spacing={3}>
               <Grid item>

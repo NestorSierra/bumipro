@@ -8,6 +8,7 @@ interface Props {
   label?: string;
   type?: string;
   icon?: SvgIconComponent;
+  readonly?: boolean;
 }
 
 export default function MyTextInput(props: Props) {
@@ -24,6 +25,7 @@ export default function MyTextInput(props: Props) {
       helperText={meta.touched && meta.error}
       style={{ marginBottom: "1.5em" }}
       InputProps={{
+        readOnly: props.readonly,
         endAdornment: props.icon && (
           <InputAdornment position="end">
             <Icon component={props.icon} />

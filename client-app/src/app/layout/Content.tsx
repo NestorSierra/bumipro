@@ -19,14 +19,18 @@ export default function Content({ children }: Props) {
             ? theme.palette.grey[200]
             : theme.palette.grey[900],
         flexGrow: 1,
-        height: "100vh",
-        overflow: "auto",
       }}
     >
       <Toolbar />
-      <div style={{ padding: "2em" }}>
-        {children}
-        <Copyright sx={{ pt: 4 }} />
+      <div
+        style={{
+          padding: "2em",
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
+        <div style={{ flexGrow: 1 }}>{children}</div>
       </div>
     </Box>
   );

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
 {
@@ -27,29 +28,54 @@ namespace Persistence
 
             if (!context.Properties.Any())
             {
-                var properties = new Property
+                for (int i = 1; i <= 100; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    Address = "Calle 57 B # 66 - 52 sur",
-                    Area = 100,
-                    Bathrooms = 2,
-                    Country = "Colombia",
-                    City = "Bogota",
-                    CreationDate = DateTime.UtcNow,
-                    Description = "Esta propiedad se encuentra en pruebas",
-                    PostCode = "6000",
-                    Price = 200000000,
-                    Rooms = 5,
-                    PriceBySqm = 15000,
-                    State = "T",
-                    Status = "A",
-                    Category = "house"
-                };
+                    var properties = new Property
+                    {
+                        Id = Guid.NewGuid(),
+                        Address = $"Calle {i} B # {65 + i} - {51 + i} sur",
+                        Area = 100,
+                        Bathrooms = 2,
+                        Country = "Colombia",
+                        City = "Bogota",
+                        CreationDate = DateTime.UtcNow,
+                        Description = "Esta propiedad se encuentra en pruebas",
+                        PostCode = "6000",
+                        Price = 200000000 + i,
+                        Rooms = 5,
+                        PriceBySqm = 15000 + i,
+                        State = "T",
+                        Status = "A",
+                        Category = "house"
+                    };
 
-                context.Properties.Add(properties);
+                    context.Properties.Add(properties);
+                }
 
                 await context.SaveChangesAsync();
             }
+
+            if (!context.PropertyOwners.Any())
+            {
+                var properties = context.Properties.ToList();
+                var mainOwner = context.Users.FirstOrDefault();
+
+                foreach (var property in properties)
+                {
+                    var propertyOwner = new PropertyOwner
+                    {
+                        AppUserId = mainOwner.Id,
+                        PropertyId = property.Id,
+                        CreationDate = DateTime.UtcNow,
+                    };
+
+                    context.PropertyOwners.Add(propertyOwner);
+                }
+
+                await context.SaveChangesAsync();
+            }
+
+
         }
     }
 }

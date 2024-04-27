@@ -3,11 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
-using Domain;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Application.Applicant;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -87,6 +84,18 @@ namespace API.Controllers
             return CreateUserObject(user);
         }
 
+        [Authorize]
+        [Route("getApplicant")]
+        [HttpGet]
+        public async Task<ActionResult<ApplicantDTO>> GetCurrentApplicant()
+        {
+            var user = await _userManager.Users
+                .Include(t => t.Photos)
+                .FirstOrDefaultAsync(t => t.Email == User.FindFirstValue(ClaimTypes.Email));
+
+            return CreateApplicantObject(user);
+        }
+
         private UserDto CreateUserObject(AppUser user)
         {
             return new UserDto
@@ -101,6 +110,30 @@ namespace API.Controllers
                 Email = user.Email,
                 Mobile = user.Mobile
 
+            };
+        }
+
+        private ApplicantDTO CreateApplicantObject(AppUser user)
+        {
+            return new ApplicantDTO
+            {
+                About = user.About,
+                City = user.City,
+                Country = user.Country,
+                DisplayName = $"{user.FirstName} {user.FamilyName}",
+                Id = user.Id,
+                Image = user?.Photos?.FirstOrDefault(t => t.IsMain)?.Url,
+                IndigenousType = user.IndigenousType,
+                IsAdult = user.IsAdult,
+                IsIndigenous = user.IsIndigenous,
+                Mobile = user.Mobile,
+                Phone = user.Phone,
+                Postcode = user.Postcode,
+                Profesion = user.Profession,
+                RelationshipStatus = user.RelationshipStatus,
+                SalaryPerYear = user.SalaryPerYear,
+                Status = user.Status,
+                UserType = user.UserType,
             };
         }
     }

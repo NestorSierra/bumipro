@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Core;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Persistence;
 
@@ -33,8 +34,19 @@ namespace Application.Applications
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                var applicant = await _context.Users.SingleOrDefaultAsync(t => t.Id == request.ApplicationDTO.AppUserId, cancellationToken: cancellationToken);
+
+                if (applicant == null) return Result<Unit>.Failure("The applicant does not exists");
+
+                applicant.RelationshipStatus = request.ApplicationDTO.Applicant.RelationshipStatus;
+                applicant.IsIndigenous = request.ApplicationDTO.Applicant.IsIndigenous;
+                applicant.SalaryPerYear = request.ApplicationDTO.Applicant.SalaryPerYear;
+                applicant.Profession = request.ApplicationDTO.Applicant.Profesion;
+
                 var application = _mapper.Map<Domain.Application>(request.ApplicationDTO);
+
                 _context.Applications.Add(application);
+
                 await _context.SaveChangesAsync();
 
                 return Result<Unit>.Success(Unit.Value);

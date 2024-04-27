@@ -40,7 +40,7 @@ interface Props {
 
 export default function NavBar({ open, toggleDrawer }: Props) {
   return (
-    <AppBar position="absolute" open={open}>
+    <AppBar position="fixed" open={open}>
       <Toolbar sx={{ pr: "24px" }}>
         <IconButton
           edge="start"
