@@ -83,8 +83,11 @@ export default observer(function ApplicationTable() {
         </Typography>
       </CardHeader>
       <CardContent>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", display: "grid" }}>
           <DataGrid
+            sx={{
+              width: "100%",
+            }}
             getRowId={(row) => row.referenceNumber}
             rows={applicationsByDate}
             columns={columns}

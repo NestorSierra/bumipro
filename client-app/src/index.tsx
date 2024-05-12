@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "react-toastify/dist/ReactToastify.min.css";
-import "./app/layout/styles.css";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./app/router/Route";
 import { RouterProvider } from "react-router-dom";

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./dashboard.css";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Button,
