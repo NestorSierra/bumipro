@@ -17,7 +17,8 @@ namespace Persistence
         public DbSet<UserJob> UserJobs { get; set; }
         public DbSet<UserReference> UserReferences { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<PropertyPhoto> PropertyPhotos {get; set;}
+        public DbSet<PropertyPhoto> PropertyPhotos { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

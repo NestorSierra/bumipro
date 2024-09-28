@@ -27,5 +27,6 @@ namespace Domain
         public ICollection<UserReference> UserReferences { get; set; }
         public ICollection<PropertyOwner> PropertyOwners { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

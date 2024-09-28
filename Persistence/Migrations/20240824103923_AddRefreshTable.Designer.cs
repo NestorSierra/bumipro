@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence;
@@ -11,9 +12,10 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240824103923_AddRefreshTable")]
+    partial class AddRefreshTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,7 +339,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshToken");
                 });
 
             modelBuilder.Entity("Domain.UserJob", b =>
@@ -603,16 +605,7 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Property", null)
                         .WithMany("PropertyPhotos")
                         .HasForeignKey("PropertyId");
-                });
-
-            modelBuilder.Entity("Domain.RefreshToken", b =>
-                {
-                    b.HasOne("Domain.AppUser", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
+                });           
 
             modelBuilder.Entity("Domain.UserJob", b =>
                 {
@@ -687,9 +680,7 @@ namespace Persistence.Migrations
 
                     b.Navigation("Photos");
 
-                    b.Navigation("PropertyOwners");
-
-                    b.Navigation("RefreshTokens");
+                    b.Navigation("PropertyOwners");                    
 
                     b.Navigation("UserJobs");
 
